@@ -1,7 +1,8 @@
 name: zero_size_encryption
 description: "A new sharara package that encrypt data with zero size cost which means if size of data is 1KB after encrypting it still 1 kB which is very useful when encrypting data in ranges inside http requests and content size based applications"
 version: 0.0.1
-homepage:
+homepage: https://github.com/HassanSharara
+repository: https://github.com/HassanSharara/zero_size_encryption
 
 environment:
   sdk: ^3.8.1
@@ -52,3 +53,9 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/to/font-from-package
+license: MIT
+
+platforms:
+  android:
+  ios:
+  web:

@@ -8,22 +8,18 @@ import 'package:zero_size_encryption/zero_size_encryption.dart';
 extension Encryptor on ZeroSizeEncryptorDecryptor {
 
 
-  List<int> encrypt({String? key}){
+  List<int> encrypt({String? key, int? toEncryptLength}){
     key??=this.key;
     assert(key!=null);
-    return List.generate(bytes.length,(i)=>_handleSingleByte(bytes[i], key!));
-  }
-  void encryptOriginal({String? key}){
-    key??=this.key;
-    assert(key!=null);
-
-    for (int i = 0; i < bytes.length ; i++){
+    toEncryptLength??=bytes.length;
+    for (int i = 0; i < toEncryptLength ; i++){
       int byte = bytes[i];
       byte = _handleSingleByte(byte, key!);
       bytes[i] = byte;
     }
+    return bytes;
   }
-  
+
   int _handleSingleByte(int byte,final String key){
     for(final int keyBytes in key.codeUnits){
       byte+=keyBytes;
@@ -39,20 +35,16 @@ extension Encryptor on ZeroSizeEncryptorDecryptor {
 extension Decryptor on ZeroSizeEncryptorDecryptor {
 
 
-  List<int> decrypt({String? key}){
+  List<int> decrypt({String? key,int? toDecryptLength}){
     key??=this.key;
     assert(key!=null);
-    return List.generate(bytes.length,(i)=>_handleSingleByteMinus(bytes[i], key!));
-  }
-  void decryptOriginal({String? key}){
-    key??=this.key;
-    assert(key!=null);
-
-    for (int i = 0; i < bytes.length ; i++){
+    toDecryptLength??=bytes.length;
+    for (int i = 0; i < toDecryptLength ; i++){
       int byte = bytes[i];
       byte = _handleSingleByteMinus(byte, key!);
       bytes[i] = byte;
     }
+    return bytes;
   }
 
   int _handleSingleByteMinus(int byte,final String key){
@@ -68,14 +60,7 @@ extension Decryptor on ZeroSizeEncryptorDecryptor {
 extension Modifiers on int {
 
   int _reShape(){
-    int result = this;
-    while(result > 255) {
-      result -=255;
-    }
-    while(result<0){
-      result+=255;
-    }
-    return result;
+    return this % 256;
   }
 }
 

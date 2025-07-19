@@ -12,7 +12,7 @@ final class ZeroSizeEncryptorDecryptor {
       ZeroSizeEncryptorDecryptor.fromList(bytes.toList(),key:key);
 
   factory ZeroSizeEncryptorDecryptor.fromString(String data,{final String? key}) =>
-      ZeroSizeEncryptorDecryptor.fromList(data.codeUnits,key:key);
+      ZeroSizeEncryptorDecryptor.fromList(data.codeUnits.toList(),key:key);
 
   static ZeroSizeEncryptorDecryptor? fromDynamic(dynamic data,{final String? key}) {
     switch (data) {

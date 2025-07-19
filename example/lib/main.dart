@@ -1,4 +1,5 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:zero_size_encryption/zero_size_encryption.dart';
 
@@ -49,7 +50,6 @@ class _FirstScreenState extends State<FirstScreen> {
 
 
   _generateRandomText(){
-
     final List<String> n = _chars.
     split("")
         .toList()
@@ -121,10 +121,12 @@ class _FirstScreenState extends State<FirstScreen> {
             decryptor = ZeroSizeEncryptorDecryptor.fromString(encrypted,
              key:keyController.text
             );
+
             setState(() {
               decrypted = String.fromCharCodes(decryptor.decrypt());
             });
-            print(decrypted == dataController.text);
+
+            if(kDebugMode)print(decrypted == dataController.text);
           }, child: Text("decrypt")),
 
         ],
